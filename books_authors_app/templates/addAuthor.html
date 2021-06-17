@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6 px-5">
+            <h1>Add a Author</h1>
+            <form action="{% url 'new_author' %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    First Name: <input type="text" class="form-control" name="fname">
+                </div>
+                <div class="mb-3">
+                    Last Name: <input type="text" class="form-control" name="lname">
+                </div>
+                <div class="mb-3">
+                    Notes: <textarea type="text" class="form-control" name="notes"> </textarea>
+                </div>
+                <button type="submit" class="btn btn-dark">Add</button>
+            </form>
+        </div>
+        <div class="col-6">
+            <table class="table table-secondary table-striped table-hover">
+                <thead>
+                    <tr class="table-dark">
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for author in authors %}
+                    <tr>
+                        <th scope="row">{{ author.id }}</td>
+                        <td>{{ author.first_name }} {{ author.last_name }}</td>
+                        <td><a href="/authors/{{author.id}}">View</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

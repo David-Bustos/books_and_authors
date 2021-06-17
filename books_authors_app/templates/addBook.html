@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6 px-5">
+            <h1>Add a Book</h1>
+            <form action="{% url 'new_book' %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    Title: <input type="text" class="form-control" name="title">
+                </div>
+                <div class="mb-3">
+                    Description: <textarea type="text" class="form-control" name="desc"> </textarea>
+                </div>
+                <button type="submit" class="btn btn-dark">Add</button>
+            </form>
+        </div>
+        <div class="col-6">
+            <table class="table table-secondary table-striped table-hover">
+                <thead>
+                    <tr class="table-dark">
+                        <th scope="col">ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                    <tr>
+                        <th scope="row">{{ book.id }}</td>
+                        <td>{{ book.title }}</td>
+                        <td><a href="/books/{{book.id}}">View</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

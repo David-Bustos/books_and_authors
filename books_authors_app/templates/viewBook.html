@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-4 px-5">
+
+            <h2>{{ book.title }}</h2>
+            <div>ID: {{ book.id }}</div>
+            <div>Description: {{ book.desc }}</div>
+        
+            <div class="mt-5">Authors:</div>
+
+            <ol class="list-group list-group-numbered">
+                {% for author in book.authors.all %}
+                <li class="list-group-item"> {{author.first_name}} {{author.last_name}}</li>
+                {% endfor %}
+            </ol>
+            <form action="{% url 'baa' %}" method="POST">
+                {% csrf_token %}
+                <select class="form-select my-3" name="author">
+                    {% for author in authors %}
+                    <option value="{{author.id}}">{{author.first_name}} {{author.last_name}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-dark">Add</button>
+            </form>
+            
+        </div>
+    </div>
+{% endblock %}
